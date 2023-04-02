@@ -1,0 +1,34 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh
+
+echo ' Mendesain, Mencoba dan membangun project usai commit'
+
+# check Pretty
+npm run check-pretty ||
+{
+	echo 'pretty check fail, run npm run pretty, add changes and try commit';
+	false;
+}
+
+# check Eslint
+npm run check-lint ||
+{
+	echo 'Eslint fail, Make the required changes listed above, add changes, and try commit';
+	false;
+}
+
+# check tsConfig
+npm run check-type ||
+{
+	echo 'Type fail, Make the changes require above, add changes, and try commit';
+	false;
+}
+
+# check build
+npm run build ||
+{
+	echo 'build fail, views the errors above, add changes, and try commit';
+	false;
+}
+
+echo 'Success commit'

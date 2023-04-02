@@ -9,7 +9,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ['@typescript-eslint'],
   ignorePatterns: ['**/build/*', '**/node_modules/*', '**/public/*'],
   rules: {}
 }

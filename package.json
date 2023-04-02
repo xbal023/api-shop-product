@@ -6,7 +6,18 @@
   "scripts": {
     "start": "npx tsc -w",
     "dev": "npx nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "pretty": "prettier --write .",
+    "husky": "husky install",
+    "check-type": "tsc --pretty --noEmit",
+    "check-pretty": "prettier --check .",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js"
+  },
+  "husky": {
+  	"hooks": {
+  		"pre-commit": "npx pretty-quick --staged ng lint ng test",
+  		"pre-push": "ng build --aot true"
+  	}
   },
   "author": "bolaxd",
   "license": "ISC",
