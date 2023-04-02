@@ -5,7 +5,7 @@ import routes from './routes/index'
 import log from './utils/logger'
 
 const app: Application = Express()
-const port: Number = 3002
+const port: Number = 3000
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

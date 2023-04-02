@@ -2,6 +2,12 @@ import pino from 'pino'
 import pretty from 'pino-pretty'
 import moment from 'moment'
 
+interface JsonSend {
+  status: Boolean
+  statusCode: Number
+  message: String
+  data: any
+}
 const logger = pino(
   {
     base: { pid: false },
@@ -10,4 +16,20 @@ const logger = pino(
   pretty()
 )
 
+export const statusOK = (message: string, data: any): JsonSend => {
+  return {
+    status: true,
+    statusCode: 200,
+    message,
+    data
+  }
+}
+export const unprocessable = (message: string, data: any): JsonSend => {
+  return {
+    status: false,
+    statusCode: 422,
+    message,
+    data
+  }
+}
 export default logger
