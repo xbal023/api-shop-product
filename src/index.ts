@@ -3,9 +3,10 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import routes from './routes/index'
 import log from './utils/logger'
+import "./config/environment"
 
 const app: Application = Express()
-const port: Number = 3000
+const port: Number = 4000
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

@@ -1,0 +1,73 @@
+[
+	{
+		"_id": "2hauFye839J",
+		"name": "Baju koko lebaran",
+		"price": 120000,
+		"description": "baju di buat dari bahan katun berkualitas harga murah",
+		"specification": {
+			"send_from": "Pekalongan",
+			"products": 128,
+			"type_product": "baju"
+		},
+		"size": [
+			{
+				"type": "XL",
+				"isReady": true,
+				"stock": 2300
+			},
+			{
+				"type": "L",
+				"isReady": true,
+				"stock": 100
+			},
+			{
+				"type": "M",
+				"isReady": true,
+				"stock": 140
+			},
+			{
+				"type": "S",
+				"isReady": true,
+				"stock": 389
+			}
+		],
+		"colors": ["pink", "white"],
+		"tags": ["baju", "lebaran", "koko"],
+		"solds": 0,
+		"favorites": 0,
+		"created_at": 16028397
+	},
+	{
+		"_id": "hsi388GsuHu",
+		"name": "Sweater hangat untuk pria",
+		"price": 90000,
+		"description": "Sweater adem cocok untuk orang yang berada di pegunungan, anda langsung masuk angin",
+		"specification": {
+			"send_from": "Pekalongan",
+			"products": 97,
+			"type_product": "sweater"
+		},
+		"size": [
+			{
+				"type": "L",
+				"isReady": true,
+				"stock": 293
+			},
+			{
+				"type": "M",
+				"isReady": true,
+				"stock": 487
+			},
+			{
+				"type": "S",
+				"isReady": true,
+				"stock": 66
+			}
+		],
+		"colors": ["red", "yellow"],
+		"tags": ["sweater", "jaket"],
+		"solds": 0,
+		"favorites": 0,
+		"created_at": 16018473
+	}
+]

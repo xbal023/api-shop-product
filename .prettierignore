@@ -4,6 +4,7 @@ package.json
 package-lock.json
 tsconfig.json
 CHANGELOG.md
+database
 readme.md
 nodemon.json
 yarn.lock

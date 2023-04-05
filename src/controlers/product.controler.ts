@@ -1,36 +1,66 @@
 import { Router, Request, Response } from 'express'
-import log, { statusOK, unprocessable } from '../utils/logger'
-import createProductValidate from '../validation/product.validation'
+import log, { success, notFound, unprocessable } from '../utils/logger'
+import createProductValidate, { putProductValidate } from '../validation/product.validation'
+import { readFileSync, writeFileSync } from 'fs'
+import {ProductCreate} from '../types/product'
+import { randomString } from '../utils/helper'
 
-interface Product {
-  id: Number
-  name: String
-  price: Number
-  description: String
-}
-let product: Product[] = [
-  { id: 1, name: 'Tas', price: 200000, description: 'tas untuk sekolah anak anak di sekolah' },
-  { id: 2, name: 'Gamis', price: 170000, description: 'gamis untuk perempuan' },
-  { id: 3, name: 'Koko', price: 150000, description: 'kok untuk baju lebaran' },
-  { id: 4, name: 'Pensil', price: 3000, description: 'pensil untuk menggambar' }
-]
-export const getProduct = (req: Request, res: Response) => {
+let data = JSON.parse(readFileSync('./database/product.json').toString())
+
+export const getProduct = async (req: Request, res: Response) => {
   const { params } = req
-  if (params.name) {
-    log.info('get product success with name')
-    const productFiltered = product.filter((prod: Product): Boolean => prod.name == params.name)
-    return res.status(200).send(statusOK('Success getting data', productFiltered))
-  }
-  log.info('get product success')
-  return res.status(200).send(statusOK('Success getting data', product))
+  if (params.id) {
+    const productFiltered = data.filter((prod: ProductCreate) => prod._id == params.id)
+    if (productFiltered.length > 0) res.status(201).send(success('Success getting data', productFiltered))
+    else res.status(404).send(notFound('Data not found', []))
+  } else res.status(201).send(success('Success getting data', data))
 }
 
-export const postProduct = (req: Request, res: Response) => {
+export const postProduct = async (req: Request, res: Response) => {
   const { error, value } = createProductValidate(req.body)
   if (error) {
     log.error('ERR * product - create ', error.details[0].message)
     return res.status(422).send(unprocessable(error.details[0].message, []))
   }
-  log.info('post product success')
-  return res.status(200).send(statusOK('Success add product', value))
+  let postVal: ProductCreate = Object.assign(value, {
+  	_id: randomString(2),
+  	solds: 0,
+  	favorites: 0,
+  	created_at: Date.now(),
+  })
+  let dataAdd = data.push(postVal)
+  await writeFileSync('./database/product.json', JSON.stringify(dataAdd, null, 4))
+  return res.status(201).send(success('Success add product', postVal))
+}
+
+export const putProduct = async (req: Request, res: Response) => {
+	const { params } = req
+  if (params.id) {
+    const productFiltered = data.filter((prod: ProductCreate) => prod._id == params.id)
+    if (productFiltered.length > 0) {
+		  const { error, value } = putProductValidate(req.body)
+		  if (error) {
+		    log.error('ERR * product - create ', error.details[0].message)
+		    return res.status(422).send(unprocessable(error.details[0].message, []))
+		  }
+		  let arrNew = Object.assign(productFiltered[0], value)
+		  let dataNew = data.splice(data.indexOf(productFiltered[0]), 1, arrNew)
+		  await writeFileSync('./database/product.json', JSON.stringify(dataNew, null, 4))
+		  return res.status(201).send(success('Success update product', arrNew))
+    }
+    else res.status(404).send(notFound('Cannot update data! data not found in database', []))
+  }
+}
+
+export const deleteProduct = async (req: Request, res: Response) => {
+	const { params } = req
+  if (params.id) {
+    const productFiltered = data.filter((prod: ProductCreate) => prod._id == params.id)
+    if (productFiltered.length > 0) {
+		  let dataNew = data.splice(data.indexOf(productFiltered[0]), 1)
+		  await writeFileSync('./database/product.json', JSON.stringify(dataNew, null, 4))
+		  return res.status(201).send(success('Success delete product', {}))
+    }
+    else res.status(404).send(notFound('Cannot delete data! data not found in database', []))
+  }
 }
