@@ -4,9 +4,10 @@
   "description": "rest api",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc -w",
     "dev": "npx nodemon",
+    "dev2": "npx tsc -w",
     "build": "tsc",
+    "start": "tsc && node dist/index",
     "pretty": "prettier --write ."
   },
   "author": "bolaxd",
