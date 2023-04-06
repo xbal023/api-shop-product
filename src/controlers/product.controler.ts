@@ -6,7 +6,7 @@ import { ProductCreate } from '../types/product'
 import { randomString } from '../utils/helper'
 import path from 'path'
 
-const jsonDirectory = path.join(process.cwd(), 'database');
+const jsonDirectory = path.join(process.cwd(), 'database/');
 
 let data = JSON.parse(readFileSync(jsonDirectory + 'product.json').toString())
 
