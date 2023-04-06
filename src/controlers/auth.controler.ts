@@ -7,7 +7,7 @@ import { randomString } from '../utils/helper'
 import { signJWT } from '../utils/jwt'
 import path from 'path'
 
-const jsonDirectory = path.join(process.cwd(), 'database');
+const jsonDirectory = path.join(process.cwd(), 'database/');
 
 const data = JSON.parse(readFileSync(jsonDirectory + 'auth.json').toString())
 
