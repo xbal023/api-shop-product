@@ -4,8 +4,11 @@ import createProductValidate, { putProductValidate } from '../validation/product
 import { readFileSync, writeFileSync } from 'fs'
 import { ProductCreate } from '../types/product'
 import { randomString } from '../utils/helper'
+import path from 'path'
 
-let data = JSON.parse(readFileSync('./database/product.json').toString())
+const jsonDirectory = path.join(process.cwd(), 'database');
+
+let data = JSON.parse(readFileSync(jsonDirectory + 'product.json').toString())
 
 export const getProduct = async (req: Request, res: Response) => {
   const { params } = req
