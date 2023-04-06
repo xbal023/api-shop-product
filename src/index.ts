@@ -7,7 +7,7 @@ import log from './utils/logger'
 import './config/environment'
 
 const app: Application = Express()
-const port: Number = 3500
+const port: Number = 3001
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
