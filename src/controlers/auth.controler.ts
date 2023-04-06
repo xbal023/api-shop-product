@@ -5,8 +5,11 @@ import { readFileSync, writeFileSync } from 'fs'
 import {Register} from '../types/auth'
 import { randomString } from '../utils/helper'
 import { signJWT } from '../utils/jwt'
+import path from 'path'
 
-const data = JSON.parse(readFileSync('./database/auth.json').toString())
+const jsonDirectory = path.join(process.cwd(), 'database');
+
+const data = JSON.parse(readFileSync(jsonDirectory + 'auth.json').toString())
 
 export const postAuth = async (req: Request, res: Response) => {
   const { error, value } = registerValidate(req.body)
